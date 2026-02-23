@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+  <h1>Welcome to <span class="highlight">rustWeb</span></h1>
+  <p class="subtitle">A full-stack web app built entirely in Rust.</p>
+  <div class="tech-badges">
+    <span class="badge">⚡ axum</span>
+    <span class="badge">🎨 tera templates</span>
+    <span class="badge">📦 serde / JSON</span>
+    <span class="badge">🔒 tokio async</span>
+  </div>
+</section>
+
+<!-- Stats Cards -->
+<section class="stats-grid">
+  <div class="card stat-card">
+    <div class="stat-number">{{ todo_count }}</div>
+    <div class="stat-label">Todos</div>
+    <a href="/todos" class="btn btn-sm">Manage →</a>
+  </div>
+  <div class="card stat-card">
+    <div class="stat-number">{{ user_count }}</div>
+    <div class="stat-label">Users</div>
+    <a href="/users" class="btn btn-sm">Manage →</a>
+  </div>
+  <div class="card stat-card">
+    <div class="stat-number">5</div>
+    <div class="stat-label">API Routes</div>
+    <a href="/about" class="btn btn-sm">View →</a>
+  </div>
+</section>
+
+<!-- Quick API Test -->
+<section class="card">
+  <h2>Quick API Test</h2>
+  <p>Try the JSON API directly from this page:</p>
+  <div class="api-tester">
+    <div class="input-row">
+      <input type="text" id="todo-input" placeholder="New todo title..." />
+      <button class="btn" onclick="createTodo()">Add Todo</button>
+    </div>
+    <pre id="api-output" class="code-block">// API response will appear here</pre>
+  </div>
+</section>
+
+<!-- Architecture Overview -->
+<section class="card">
+  <h2>How It Works</h2>
+  <div class="arch-grid">
+    <div class="arch-step">
+      <div class="step-num">1</div>
+      <div class="step-text"><strong>Request arrives</strong> at axum router</div>
+    </div>
+    <div class="arch-step">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>Handler function</strong> extracts params &amp; state</div>
+    </div>
+    <div class="arch-step">
+      <div class="step-num">3</div>
+      <div class="step-text">For pages: <strong>Tera renders</strong> HTML template</div>
+    </div>
+    <div class="arch-step">
+      <div class="step-num">4</div>
+      <div class="step-text">For API: <strong>serde serializes</strong> Rust struct → JSON</div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+async function createTodo() {
+  const title = document.getElementById('todo-input').value.trim();
+  if (!title) return;
+
+  const res = await fetch('/api/todos', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title })
+  });
+  const data = await res.json();
+  document.getElementById('api-output').textContent =
+    JSON.stringify(data, null, 2);
+  document.getElementById('todo-input').value = '';
+}
+</script>
+{% endblock %}

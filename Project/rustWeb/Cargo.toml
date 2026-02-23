@@ -1,0 +1,42 @@
+[package]
+name = "rustweb"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "rustweb"
+path = "src/main.rs"
+
+[dependencies]
+# Web framework — fast, ergonomic, built on hyper + tokio
+axum = { version = "0.7", features = ["macros"] }
+
+# Async runtime — required by axum
+tokio = { version = "1", features = ["full"] }
+
+# HTML template engine
+tera = "1"
+
+# Serialization / Deserialization (JSON support)
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# HTTP types (status codes, headers, etc.)
+http = "1"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Unique IDs
+uuid = { version = "1", features = ["v4"] }
+
+# Time/date
+chrono = { version = "0.4", features = ["serde"] }
+
+# Tower middleware (sessions, CORS, static files)
+tower = "0.4"
+tower-http = { version = "0.5", features = ["fs", "cors", "trace"] }
+
+[profile.release]
+opt-level = 3

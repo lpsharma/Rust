@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}{{ title }}{% endblock %}</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav class="navbar">
+    <a class="brand" href="/">🦀 rustWeb</a>
+    <ul class="nav-links">
+      <li><a href="/"       class="{% if page == 'home'  %}active{% endif %}">Home</a></li>
+      <li><a href="/todos"  class="{% if page == 'todos' %}active{% endif %}">Todos</a></li>
+      <li><a href="/users"  class="{% if page == 'users' %}active{% endif %}">Users</a></li>
+      <li><a href="/about"  class="{% if page == 'about' %}active{% endif %}">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== Main Content ===== -->
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <p>Built with 🦀 Rust · <strong>axum</strong> · <strong>tera</strong> · <strong>serde</strong></p>
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

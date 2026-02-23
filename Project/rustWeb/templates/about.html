@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card">
+  <h1>About rustWeb</h1>
+  <p>A full-stack web application written in Rust, serving as a learning reference for how web apps are structured.</p>
+</section>
+
+<!-- Tech Stack -->
+<section class="card">
+  <h2>Tech Stack</h2>
+  <div class="stack-grid">
+    <div class="stack-item">
+      <div class="stack-icon">🌐</div>
+      <div class="stack-name">axum</div>
+      <div class="stack-desc">Web framework built on hyper + tokio. Ultra-fast, ergonomic routing and middleware.</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-icon">🎨</div>
+      <div class="stack-name">tera</div>
+      <div class="stack-desc">Jinja2-inspired template engine. Renders HTML server-side with Rust data.</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-icon">📦</div>
+      <div class="stack-name">serde</div>
+      <div class="stack-desc">Serialization framework. Converts Rust structs ↔ JSON effortlessly.</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-icon">⚡</div>
+      <div class="stack-name">tokio</div>
+      <div class="stack-desc">Async runtime. Handles thousands of concurrent connections with minimal overhead.</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-icon">🔒</div>
+      <div class="stack-name">tower-http</div>
+      <div class="stack-desc">Middleware: CORS, static file serving, request tracing.</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-icon">🆔</div>
+      <div class="stack-name">uuid + chrono</div>
+      <div class="stack-desc">UUID v4 for unique IDs. Chrono for timestamps with serde support.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Full Route Map -->
+<section class="card">
+  <h2>All Routes</h2>
+  <table class="api-table">
+    <tr><th>Type</th><th>Method</th><th>Path</th><th>Description</th></tr>
+    <tr>
+      <td>Page</td>
+      <td><span class="method get">GET</span></td>
+      <td>/</td>
+      <td>Home dashboard</td>
+    </tr>
+    <tr>
+      <td>Page</td>
+      <td><span class="method get">GET</span></td>
+      <td>/todos</td>
+      <td>Todo list page</td>
+    </tr>
+    <tr>
+      <td>Page</td>
+      <td><span class="method get">GET</span></td>
+      <td>/users</td>
+      <td>Users page</td>
+    </tr>
+    <tr>
+      <td>Page</td>
+      <td><span class="method get">GET</span></td>
+      <td>/about</td>
+      <td>This page</td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td><span class="method get">GET</span></td>
+      <td>/api/todos</td>
+      <td>List todos as JSON</td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td><span class="method post">POST</span></td>
+      <td>/api/todos</td>
+      <td>Create todo (JSON body)</td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td><span class="method get">GET</span></td>
+      <td>/api/todos/:id</td>
+      <td>Get one todo</td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td><span class="method put">PUT</span></td>
+      <td>/api/todos/:id</td>
+      <td>Update todo</td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td><span class="method del">DELETE</span></td>
+      <td>/api/todos/:id</td>
+      <td>Delete todo</td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td><span class="method get">GET</span></td>
+      <td>/api/users</td>
+      <td>List users as JSON</td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td><span class="method post">POST</span></td>
+      <td>/api/users</td>
+      <td>Create user (JSON body)</td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td><span class="method get">GET</span></td>
+      <td>/api/users/:id</td>
+      <td>Get one user</td>
+    </tr>
+    <tr>
+      <td>Static</td>
+      <td><span class="method get">GET</span></td>
+      <td>/static/*</td>
+      <td>CSS, JS, images</td>
+    </tr>
+  </table>
+</section>
+
+<!-- Key Rust Patterns Used -->
+<section class="card">
+  <h2>Rust Patterns Used in This App</h2>
+  <ul class="pattern-list">
+    <li><strong>Arc&lt;AppState&gt;</strong> — share state across async handlers safely</li>
+    <li><strong>Mutex&lt;Vec&lt;T&gt;&gt;</strong> — in-memory database with concurrent access protection</li>
+    <li><strong>#[derive(Serialize, Deserialize)]</strong> — automatic JSON marshaling</li>
+    <li><strong>Result&lt;T, E&gt;</strong> — all API handlers return errors explicitly</li>
+    <li><strong>async fn</strong> — every handler is an async function powered by tokio</li>
+    <li><strong>Traits (IntoResponse)</strong> — axum handlers can return any type implementing IntoResponse</li>
+    <li><strong>Extractors (State, Path, Json)</strong> — axum pulls typed data from requests automatically</li>
+  </ul>
+</section>
+{% endblock %}
